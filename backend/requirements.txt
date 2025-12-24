@@ -1,0 +1,39 @@
+# Web Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+
+# Data Processing & ML
+numpy==1.24.3
+pandas==2.1.3
+scikit-learn==1.3.2
+
+# ML Models
+tensorflow==2.14.0
+torch==2.1.1
+
+# Database
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+
+# API & Data Serialization
+pydantic==2.5.0
+python-multipart==0.0.6
+
+# Utilities
+python-dotenv==1.0.0
+requests==2.31.0
+
+# IoT/Sensor Integration
+paho-mqtt==1.6.1
+
+# Async Support
+aiofiles==23.2.1
+
+# Logging & Monitoring
+python-json-logger==2.0.7
+
+# Development & Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.12.0
+flake8==6.1.0
