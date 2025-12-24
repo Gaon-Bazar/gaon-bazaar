@@ -1,0 +1,116 @@
+/* Schemes Section Styling - Professional Card Design */
+
+.schemes-section {
+  background-color: #fafbfc;
+  padding: 70px 40px;
+  margin-bottom: 60px;
+}
+
+.section-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin: 0 0 12px 0;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  margin: 0 0 50px 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.schemes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin: 0;
+}
+
+.scheme-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px 28px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-top: 5px solid #2d7f3e;
+  display: flex;
+  flex-direction: column;
+}
+
+.scheme-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+}
+
+.scheme-icon {
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+  display: block;
+  line-height: 1;
+}
+
+.scheme-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0 0 15px 0;
+  line-height: 1.4;
+}
+
+.scheme-description {
+  font-size: 0.99rem;
+  color: #666;
+  line-height: 1.7;
+  margin: 0 0 25px 0;
+  flex-grow: 1;
+}
+
+.scheme-button {
+  background-color: #2d7f3e;
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-size: 0.99rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.scheme-button:hover {
+  background-color: #1a472a;
+  box-shadow: 0 4px 12px rgba(45, 127, 62, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .schemes-section {
+    padding: 45px 20px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .schemes-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .scheme-card {
+    padding: 30px 20px;
+  }
+}

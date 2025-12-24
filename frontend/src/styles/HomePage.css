@@ -1,0 +1,200 @@
+/* HomePage Styling - Professional Layout */
+
+.home-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #1a472a 0%, #2d7f3e 100%);
+  color: white;
+  padding: 80px 40px;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+}
+
+.hero-subtitle {
+  font-size: 1.35rem;
+  font-weight: 300;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.hero-divider {
+  width: 80px;
+  height: 5px;
+  background: #ffc107;
+  margin: 30px auto 0;
+  border-radius: 3px;
+}
+
+/* Main Cards Section */
+.main-cards-section {
+  padding: 70px 40px;
+  background-color: #fafbfc;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #1a472a;
+  margin: 0 0 12px 0;
+  text-align: center;
+  letter-spacing: -0.3px;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  text-align: center;
+  margin: 0 0 50px 0;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Main Cards Grid */
+.main-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.main-card {
+  background: white;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.main-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+}
+
+.main-card-header {
+  border-top: 2px solid #e0e0e0;
+  padding: 24px;
+  background-color: #f8f9fa;
+  text-align: center;
+}
+
+.main-card-icon {
+  font-size: 3.2rem;
+  display: block;
+  line-height: 1;
+}
+
+.main-card-content {
+  padding: 28px 24px;
+  flex-grow: 1;
+}
+
+.main-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.main-card-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.main-card-footer {
+  padding: 0 24px 24px 24px;
+}
+
+/* Learn More Button */
+.learn-more-btn {
+  background-color: transparent;
+  border: 2px solid #2d7f3e;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  color: #2d7f3e;
+}
+
+.learn-more-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.learn-more-btn:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50px 20px;
+    margin-bottom: 40px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .main-cards-section {
+    padding: 45px 20px;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .main-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .main-card {
+    padding: 0;
+  }
+
+  .main-card-header {
+    padding: 20px;
+  }
+
+  .main-card-content {
+    padding: 20px;
+  }
+
+  .main-card-footer {
+    padding: 0 20px 20px 20px;
+  }
+}

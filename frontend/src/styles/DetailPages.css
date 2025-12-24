@@ -1,0 +1,353 @@
+/* Detail Pages Styling */
+/* Shared styles for Schemes, Subsidies, Events, and Announcements detail pages */
+
+.detail-page {
+  min-height: 100vh;
+  background-color: #ffffff;
+}
+
+/* Header Section */
+.detail-header {
+  background: linear-gradient(135deg, #1a472a 0%, #2d7f3e 100%);
+  color: white;
+  padding: 40px 40px;
+  margin-bottom: 50px;
+  border-bottom: 4px solid #ffc107;
+}
+
+.section-container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.back-button {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(-5px);
+}
+
+.detail-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin: 10px 0;
+  line-height: 1.3;
+}
+
+.detail-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.95;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Detail Content */
+.detail-content {
+  padding: 50px 40px;
+}
+
+/* Cards Grid */
+.detail-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  margin: 0;
+}
+
+/* Detail Card */
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-top: 2px solid #e0e0e0;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.detail-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+}
+
+.detail-card.subsidy-card {
+  border-top-color: #e0e0e0;
+}
+
+.detail-card.event-card {
+  border-top-color: #e0e0e0;
+}
+
+.detail-card-icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.detail-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0 0 12px 0;
+  line-height: 1.4;
+}
+
+.detail-card-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 18px 0;
+  flex-grow: 1;
+}
+
+/* Card Info Section */
+.detail-card-info {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  flex-grow: 1;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  font-weight: 700;
+  color: #1a472a;
+  margin-bottom: 4px;
+}
+
+.info-value {
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Buttons */
+.apply-btn {
+  background-color: #2d7f3e;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.apply-btn:hover {
+  background-color: #1a472a;
+  box-shadow: 0 4px 12px rgba(45, 127, 62, 0.3);
+}
+
+/* Event Card Specific */
+.event-date-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: #2d7f3e;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* Announcements Section */
+.announcements-content {
+  background-color: #fffbf5;
+  padding: 50px 40px;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.announcement-item {
+  background: white;
+  padding: 28px;
+  margin-bottom: 0;
+  border-left: 5px solid #ffc107;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+}
+
+.announcement-item:hover {
+  background-color: #fffcf7;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.announcement-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-category {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  min-width: 95px;
+  text-align: center;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  height: fit-content;
+}
+
+.announcement-content {
+  flex: 1;
+}
+
+.announcement-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.announcement-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.announcement-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.announcement-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.announcement-full-text {
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.6;
+  margin: 0 0 12px 0;
+  font-style: italic;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+}
+
+.announcement-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.announcement-date {
+  font-size: 0.85rem;
+  color: #999;
+  font-weight: 500;
+}
+
+.read-more-btn {
+  background: none;
+  color: #2d7f3e;
+  border: 2px solid #2d7f3e;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.read-more-btn:hover {
+  background-color: #2d7f3e;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detail-header {
+    padding: 30px 20px;
+    margin-bottom: 30px;
+  }
+
+  .detail-title {
+    font-size: 1.8rem;
+  }
+
+  .detail-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .detail-content {
+    padding: 30px 20px;
+  }
+
+  .detail-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .detail-card {
+    padding: 24px 18px;
+  }
+
+  .announcement-item {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px;
+  }
+
+  .announcement-category {
+    min-width: auto;
+  }
+
+  .announcement-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .event-date-badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+}

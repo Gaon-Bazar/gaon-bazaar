@@ -31,8 +31,14 @@ CROP_MAPPING = {
     "lahsun": "garlic",
     "adrak": "ginger",
     
-    # Grains & Cereals
+    # Grains & Cereals (with variations)
     "gehun": "wheat",
+    "gehu": "wheat",
+    "gehun": "wheat",
+    "gehu": "wheat",
+    "gehun": "wheat",
+    "gandum": "wheat",
+    "gum": "wheat",
     "wheat": "wheat",
     "chawal": "rice",
     "rice": "rice",
@@ -40,6 +46,8 @@ CROP_MAPPING = {
     "maize": "maize",
     "bajra": "bajra",
     "jowar": "jowar",
+    "dhan": "paddy",
+    "paddy": "paddy",
     
     # Fruits
     "seb": "apple",
@@ -67,6 +75,7 @@ def extract_crop_and_quantity(text: str) -> dict:
     Examples:
     - "Mere paas 50 kilo tamatar hai" -> {"crop": "tomato", "quantity": 50}
     - "100 kg aloo" -> {"crop": "potato", "quantity": 100}
+    - "mere pass 5kg gehu hai" -> {"crop": "wheat", "quantity": 5}
     """
     
     text_lower = text.lower().strip()
@@ -76,10 +85,12 @@ def extract_crop_and_quantity(text: str) -> dict:
     quantity = int(quantity_match.group(1)) if quantity_match else 0
     
     # Extract crop name by matching against mapping
+    # Try longest matches first to handle multi-word crops
     crop_found = "unknown"
-    for hindi_crop, english_crop in CROP_MAPPING.items():
+    sorted_crops = sorted(CROP_MAPPING.keys(), key=len, reverse=True)
+    for hindi_crop in sorted_crops:
         if hindi_crop in text_lower:
-            crop_found = english_crop
+            crop_found = CROP_MAPPING[hindi_crop]
             break
     
     return {

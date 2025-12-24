@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useRef, useEffect } from 'react';
+import api from '../api';
 import './Farmer.css';
 
 function Farmer() {
@@ -9,10 +9,80 @@ function Farmer() {
   const [qualityData, setQualityData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isListening, setIsListening] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState('');
+  const [speechSupported, setSpeechSupported] = useState(true);
+  const recognitionRef = useRef(null);
 
-  const API_BASE = 'http://127.0.0.1:8000/api';
+  // base handled by api instance
 
-  // Handle voice input processing
+  // Initialize Speech Recognition
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!SpeechRecognition) {
+      setSpeechSupported(false);
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.language = 'hi-IN'; // Hindi-India
+    recognition.continuous = false;
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+      setIsListening(true);
+      setSpeechStatus('🎙️ Listening...');
+      setError('');
+    };
+
+    recognition.onresult = (event) => {
+      let transcript = '';
+      
+      for (let i = event.resultIndex; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript;
+      }
+
+      // Only update on final result
+      if (event.results[event.results.length - 1].isFinal) {
+        setVoiceInput(transcript.trim());
+      }
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+      setSpeechStatus('✅ Speech captured');
+      setTimeout(() => setSpeechStatus(''), 2000);
+    };
+
+    recognition.onerror = (event) => {
+      setIsListening(false);
+      setSpeechStatus('');
+      if (event.error === 'network') {
+        setError('Network error. Please check your connection.');
+      } else if (event.error === 'no-speech') {
+        setError('No speech detected. Please try again.');
+      } else if (event.error === 'not-allowed') {
+        setError('Microphone permission denied. Please enable it in browser settings.');
+      } else {
+        setError(`Speech recognition error: ${event.error}`);
+      }
+    };
+
+    recognitionRef.current = recognition;
+  }, []);
+
+  // Handle microphone button click
+  const handleMicClick = () => {
+    if (!recognitionRef.current) return;
+
+    if (isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current.start();
+    }
+  };
   const handleVoiceInput = async () => {
     if (!voiceInput.trim()) {
       setError('Please enter crop information');
@@ -23,14 +93,14 @@ function Farmer() {
     setError('');
     try {
       // Process voice input
-      const voiceResponse = await axios.post(`${API_BASE}/voice-input`, {
+      const voiceResponse = await api.post(`/voice-input`, {
         text: voiceInput
       });
 
       setExtractedCrop(voiceResponse.data);
 
       // Get price prediction
-      const priceResponse = await axios.post(`${API_BASE}/predict-price`, {
+      const priceResponse = await api.post(`/predict-price`, {
         crop: voiceResponse.data.crop,
         month: new Date().getMonth() + 1
       });
@@ -38,7 +108,7 @@ function Farmer() {
       setPriceData(priceResponse.data);
 
       // Get quality verification
-      const qualityResponse = await axios.get(`${API_BASE}/iot/quality`);
+      const qualityResponse = await api.get(`/iot/quality`);
       setQualityData(qualityResponse.data);
     } catch (err) {
       setError('Failed to process input. Please try again.');
@@ -57,7 +127,7 @@ function Farmer() {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post(`${API_BASE}/farmer/add-listing`, {
+      const response = await api.post(`/farmer/add-listing`, {
         crop: extractedCrop.crop,
         quantity: extractedCrop.quantity,
         location: 'Your Village'
@@ -86,14 +156,34 @@ function Farmer() {
           <label htmlFor="voiceInput" className="input-label">
             Describe your produce (Hindi/English):
           </label>
-          <textarea
-            id="voiceInput"
-            value={voiceInput}
-            onChange={(e) => setVoiceInput(e.target.value)}
-            placeholder="Example: Mere paas 50 kilo tamatar hai"
-            className="input-textarea"
-            rows="3"
-          />
+          <div className="input-wrapper">
+            <textarea
+              id="voiceInput"
+              value={voiceInput}
+              onChange={(e) => setVoiceInput(e.target.value)}
+              placeholder="Example: Mere paas 50 kilo tamatar hai"
+              className="input-textarea"
+              rows="3"
+            />
+            <button
+              onClick={handleMicClick}
+              disabled={!speechSupported}
+              className={`btn-mic ${isListening ? 'listening' : ''}`}
+              title={speechSupported ? (isListening ? 'Stop listening' : 'Start listening') : 'Speech recognition not supported'}
+            >
+              {isListening ? '🛑' : '🎤'}
+            </button>
+          </div>
+          {speechStatus && (
+            <div className="speech-status">
+              {speechStatus}
+            </div>
+          )}
+          {!speechSupported && (
+            <div className="speech-not-supported">
+              ⚠️ Speech recognition not supported in your browser
+            </div>
+          )}
           <button
             onClick={handleVoiceInput}
             disabled={loading}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import './Buyer.css';
 
 function Buyer() {
@@ -8,7 +8,7 @@ function Buyer() {
   const [error, setError] = useState('');
   const [orderMessage, setOrderMessage] = useState('');
 
-  const API_BASE = 'http://127.0.0.1:8000/api';
+  // base handled by api instance
 
   // Fetch listings on component mount
   useEffect(() => {
@@ -19,7 +19,7 @@ function Buyer() {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get(`${API_BASE}/buyer/listings`);
+      const response = await api.get(`/buyer/listings`);
       setListings(response.data);
     } catch (err) {
       setError('Failed to load listings. Please try again.');
@@ -31,8 +31,8 @@ function Buyer() {
 
   const handleConfirmOrder = async (crop, quantity) => {
     try {
-      const response = await axios.post(
-        `${API_BASE}/buyer/order`,
+      const response = await api.post(
+        `/buyer/order`,
         null,
         {
           params: {

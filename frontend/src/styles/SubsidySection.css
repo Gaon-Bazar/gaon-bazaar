@@ -1,0 +1,77 @@
+/* Subsidy Section Styling - Professional Benefit Cards */
+
+.subsidy-section {
+  background: linear-gradient(to bottom, #f5f7fa, #eef3f8);
+  padding: 70px 40px;
+  margin-bottom: 60px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 28px;
+}
+
+.benefit-card {
+  background: white;
+  border-radius: 12px;
+  padding: 35px 28px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid #00897b;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+}
+
+.benefit-card:nth-child(2) {
+  border-top-color: #1976d2;
+}
+
+.benefit-card:nth-child(3) {
+  border-top-color: #d32f2f;
+}
+
+.benefit-card:nth-child(4) {
+  border-top-color: #f57c00;
+}
+
+.benefit-icon {
+  font-size: 3.2rem;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.benefit-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.2px;
+}
+
+.benefit-description {
+  font-size: 0.99rem;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .subsidy-section {
+    padding: 45px 20px;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .benefit-card {
+    padding: 28px 20px;
+  }
+}
