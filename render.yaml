@@ -1,0 +1,12 @@
+# Render service definition for Gaon Bazar backend (Python FastAPI)
+services:
+  - type: web
+    name: gaon-bazar-backend
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port 10000"
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 10000
