@@ -1,6 +1,7 @@
 // AuthContext for Gaon Bazar
-// Provides: currentUser, loading, login, signup, logout
+// Provides: currentUser, loading, login, signup, logout, activeRole, setActiveRole
 // Persists session via Supabase and localStorage
+// activeRole: Controls which navigation items are visible ('farmer' | 'buyer' | null)
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import supabase from '../supabaseClient';
@@ -10,6 +11,23 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null); // { id, email, name, role }
   const [loading, setLoading] = useState(true);
+  
+  // Active role for navigation display: 'farmer' | 'buyer' | null
+  // Persisted in localStorage for consistency across page refreshes
+  const [activeRole, setActiveRoleState] = useState(() => {
+    const saved = localStorage.getItem('gb_active_role');
+    return saved || null;
+  });
+  
+  // Wrapper to persist activeRole changes to localStorage
+  const setActiveRole = (role) => {
+    setActiveRoleState(role);
+    if (role) {
+      localStorage.setItem('gb_active_role', role);
+    } else {
+      localStorage.removeItem('gb_active_role');
+    }
+  };
 
   // Restore session on mount
   useEffect(() => {
@@ -176,6 +194,8 @@ export function AuthProvider({ children }) {
     login,
     signup,
     logout,
+    activeRole,
+    setActiveRole,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

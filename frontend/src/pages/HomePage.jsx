@@ -1,95 +1,121 @@
-// Main Homepage - Shows 4 overview cards
-// Each card links to a detailed page with more information
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/HomePage.css';
+import CategoriesSlider from '../components/CategoriesSlider';
 
 function HomePage() {
   const navigate = useNavigate();
 
-  // 4 main sections with descriptions
-  const mainCards = [
+  const featureCards = [
     {
-      id: 1,
-      title: 'Government Schemes',
-      description: 'Explore various schemes and support programs available to farmers including PM-KISAN, crop insurance, and more.',
-      icon: '📋',
-      route: '/schemes',
-      color: '#2d7f3e'
+      title: 'Voice-Based Crop Listing',
+      description: 'Farmers can speak in Hindi/Hinglish to list crops easily.',
+      icon: '🎤',
     },
     {
-      id: 2,
-      title: 'Subsidies & Financial Benefits',
-      description: 'Learn about financial assistance including seed subsidies, equipment grants, and low-interest agricultural loans.',
+      title: 'Fair Price Intelligence',
+      description: 'Get AI-powered fair price suggestions based on market data.',
       icon: '💰',
-      route: '/subsidies',
-      color: '#00897b'
     },
     {
-      id: 3,
-      title: 'Upcoming Events & Training Programs',
-      description: 'Stay updated with workshops, training camps, and awareness sessions happening in your region.',
+      title: 'Quality Verification',
+      description: 'Temperature & humidity-based freshness scoring.',
+      icon: '🌡️',
+    },
+    {
+      title: 'Direct Farmer–Buyer Trade',
+      description: 'No middlemen. Transparent and fair trading.',
+      icon: '🤝',
+    },
+  ];
+
+  const resourceCards = [
+    {
+      title: 'Government Schemes',
+      description: 'Browse PM-KISAN, crop insurance, MSP, and more.',
+      icon: '📜',
+      route: '/schemes',
+    },
+    {
+      title: 'Subsidies & Financial Benefits',
+      description: 'Seed, fertilizer, storage, and low-interest loans.',
+      icon: '🏦',
+      route: '/subsidies',
+    },
+    {
+      title: 'Upcoming Events & Training',
+      description: 'Workshops, training camps, and digital agri programs.',
       icon: '📅',
       route: '/events',
-      color: '#1976d2'
     },
     {
-      id: 4,
-      title: 'Official Announcements & Notices',
-      description: 'Important government notices, policy updates, and deadline reminders for farmers.',
+      title: 'Official Announcements',
+      description: 'Government notices, advisories, and seasonal alerts.',
       icon: '📢',
       route: '/announcements',
-      color: '#f57c00'
-    }
+    },
   ];
 
   return (
     <div className="home-page">
-      {/* Hero Section */}
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Government Support for Farmers</h1>
-          <p className="hero-subtitle">
-            Schemes, subsidies, fair prices & opportunities for agricultural growth
+      <section className="hero">
+        <div className="hero-overlay" />
+        <div className="hero-content container">
+          <div className="hero-badge">Empowering Indian Farmers</div>
+          <h1 className="hero-title">Gaon Bazar</h1>
+          <p className="hero-subtitle">Fair prices. Trusted quality. Direct farmer-to-buyer marketplace.</p>
+          <p className="hero-description">
+            Gaon Bazar connects farmers and buyers directly using voice-based input, fair price intelligence, and quality
+            verification — eliminating middlemen and increasing transparency.
           </p>
-          <div className="hero-divider"></div>
+          <div className="hero-actions">
+            <button className="cta-primary" onClick={() => navigate('/farmer')}>
+              Start as Farmer
+            </button>
+            <button className="cta-secondary" onClick={() => navigate('/buyer')}>
+              Explore Marketplace
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Main Cards Grid */}
-      <section className="main-cards-section">
-        <div className="section-container">
-          <h2 className="section-title">Agricultural Support Portal</h2>
-          <p className="section-subtitle">Browse government schemes, benefits, and updates</p>
+      <section className="feature-section container">
+        <div className="section-header">
+          <div className="eyebrow">Revolutionary Features for Farmers</div>
+          <h2>Built for trust, speed, and fairness</h2>
+          <p>Inspired by KrishiChain aesthetics, crafted for Gaon Bazar’s farmer-to-buyer mission.</p>
+        </div>
+        <div className="feature-grid">
+          {featureCards.map((card) => (
+            <div key={card.title} className="feature-card">
+              <div className="feature-icon">{card.icon}</div>
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          <div className="main-cards-grid">
-            {mainCards.map(card => (
-              <div key={card.id} className="main-card">
-                <div className="main-card-header" style={{ borderTopColor: card.color }}>
-                  <div className="main-card-icon">{card.icon}</div>
+      <CategoriesSlider />
+
+      <section className="resources-section" id="resources">
+        <div className="container">
+          <div className="section-header">
+            <div className="eyebrow">Government Support & Farmer Resources</div>
+            <h2>One window for verified benefits</h2>
+            <p>Everything farmers need to trust prices, access schemes, and stay informed.</p>
+          </div>
+          <div className="resource-grid">
+            {resourceCards.map((card) => (
+              <div key={card.title} className="resource-card">
+                <div className="resource-top">
+                  <div className="resource-icon">{card.icon}</div>
+                  <h3>{card.title}</h3>
+                  <p>{card.description}</p>
                 </div>
-                <div className="main-card-content">
-                  <h3 className="main-card-title">{card.title}</h3>
-                  <p className="main-card-description">{card.description}</p>
-                </div>
-                <div className="main-card-footer">
-                  <button 
-                    className="learn-more-btn"
-                    onClick={() => navigate(card.route)}
-                    style={{ borderColor: card.color, color: card.color }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = card.color;
-                      e.target.style.color = 'white';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = 'transparent';
-                      e.target.style.color = card.color;
-                    }}
-                  >
-                    Learn More →
-                  </button>
-                </div>
+                <button className="resource-btn" onClick={() => navigate(card.route)}>
+                  Learn More →
+                </button>
               </div>
             ))}
           </div>

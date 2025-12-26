@@ -3,11 +3,9 @@
 // Shows date, location, and event details
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/DetailPages.css';
 
 function EventsDetailPage() {
-  const navigate = useNavigate();
 
   // Mock data for events
   const events = [
@@ -75,28 +73,35 @@ function EventsDetailPage() {
 
   return (
     <div className="detail-page">
-      {/* Events Grid */}
+      <section className="detail-hero">
+        <div className="section-container">
+          <div className="hero-chip">Market Insights & Events</div>
+          <h1>Stay ahead with training and advisories.</h1>
+          <p>Attend workshops, awareness sessions, and digital agriculture programs to stay updated.</p>
+        </div>
+      </section>
+
       <section className="detail-content">
         <div className="section-container">
           <div className="detail-cards-grid">
-            {events.map(event => (
+            {events.map((event) => (
               <div key={event.id} className="detail-card event-card">
                 <div className="event-date-badge">{event.date}</div>
                 <div className="detail-card-icon">{event.icon}</div>
                 <h3 className="detail-card-title">{event.title}</h3>
                 <p className="detail-card-description">{event.description}</p>
-                
+
                 <div className="detail-card-info">
                   <div className="info-row">
-                    <span className="info-label">📍 Location:</span>
+                    <span className="info-label">📍 Location</span>
                     <span className="info-value">{event.location}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">🕐 Time:</span>
+                    <span className="info-label">🕐 Time</span>
                     <span className="info-value">{event.time}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">👤 Speaker:</span>
+                    <span className="info-label">👤 Speaker</span>
                     <span className="info-value">{event.speaker}</span>
                   </div>
                 </div>

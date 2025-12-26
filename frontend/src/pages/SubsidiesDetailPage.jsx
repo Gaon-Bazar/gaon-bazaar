@@ -3,11 +3,9 @@
 // Shows eligibility and benefit details for each subsidy type
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/DetailPages.css';
 
 function SubsidiesDetailPage() {
-  const navigate = useNavigate();
 
   // Mock data for subsidies and benefits
   const subsidies = [
@@ -69,27 +67,34 @@ function SubsidiesDetailPage() {
 
   return (
     <div className="detail-page">
-      {/* Subsidies Grid */}
+      <section className="detail-hero">
+        <div className="section-container">
+          <div className="hero-chip">Subsidies & Financial Benefits</div>
+          <h1>Financial relief, simplified.</h1>
+          <p>Seed, fertilizer, storage, equipment, irrigation, and credit support — curated for every farmer profile.</p>
+        </div>
+      </section>
+
       <section className="detail-content">
         <div className="section-container">
           <div className="detail-cards-grid">
-            {subsidies.map(subsidy => (
+            {subsidies.map((subsidy) => (
               <div key={subsidy.id} className="detail-card subsidy-card">
                 <div className="detail-card-icon">{subsidy.icon}</div>
                 <h3 className="detail-card-title">{subsidy.title}</h3>
                 <p className="detail-card-description">{subsidy.description}</p>
-                
+
                 <div className="detail-card-info">
                   <div className="info-row">
-                    <span className="info-label">Benefit:</span>
+                    <span className="info-label">Benefit</span>
                     <span className="info-value">{subsidy.benefit}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Eligibility:</span>
+                    <span className="info-label">Eligibility</span>
                     <span className="info-value">{subsidy.eligibility}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Max Amount:</span>
+                    <span className="info-label">Max Amount</span>
                     <span className="info-value">{subsidy.maxAmount}</span>
                   </div>
                 </div>

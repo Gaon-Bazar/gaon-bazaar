@@ -1,0 +1,79 @@
+.billing-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f3b1d 0%, #184d2b 40%, #0f3b1d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.billing-card {
+  background: #f7faf7;
+  border-radius: 14px;
+  padding: 24px;
+  width: 520px;
+  max-width: 92vw;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  color: #0f3b1d;
+}
+
+.billing-card h2 {
+  margin: 0 0 6px 0;
+}
+
+.muted {
+  color: #4f5d4d;
+  margin-bottom: 18px;
+}
+
+.billing-section {
+  background: #ffffff;
+  border: 1px solid #e3e8e0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.billing-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #ecf1ec;
+}
+
+.billing-row:last-child {
+  border-bottom: none;
+}
+
+.billing-row.total {
+  font-weight: 700;
+}
+
+.solid-btn {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  background: #1c6b3b;
+  color: #f7faf7;
+  border: 1px solid #15522d;
+  transition: transform 0.08s ease, box-shadow 0.12s ease;
+}
+
+.solid-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 540px) {
+  .billing-card {
+    padding: 18px;
+  }
+}

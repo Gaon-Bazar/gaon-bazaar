@@ -3,11 +3,9 @@
 // Each scheme shows description and Apply button
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/DetailPages.css';
 
 function SchemesDetailPage() {
-  const navigate = useNavigate();
 
   // Mock data for government schemes
   const schemes = [
@@ -63,23 +61,30 @@ function SchemesDetailPage() {
 
   return (
     <div className="detail-page">
-      {/* Schemes Grid */}
+      <section className="detail-hero">
+        <div className="section-container">
+          <div className="hero-chip">Government Schemes</div>
+          <h1>Verified programs. Direct benefits.</h1>
+          <p>Explore flagship schemes like PM-KISAN, PMFBY, MSP, and more — curated for quick farmer access.</p>
+        </div>
+      </section>
+
       <section className="detail-content">
         <div className="section-container">
           <div className="detail-cards-grid">
-            {schemes.map(scheme => (
+            {schemes.map((scheme) => (
               <div key={scheme.id} className="detail-card">
                 <div className="detail-card-icon">{scheme.icon}</div>
                 <h3 className="detail-card-title">{scheme.title}</h3>
                 <p className="detail-card-description">{scheme.description}</p>
-                
+
                 <div className="detail-card-info">
                   <div className="info-row">
-                    <span className="info-label">Eligibility:</span>
+                    <span className="info-label">Eligibility</span>
                     <span className="info-value">{scheme.eligibility}</span>
                   </div>
                   <div className="info-row">
-                    <span className="info-label">Benefit:</span>
+                    <span className="info-label">Benefit</span>
                     <span className="info-value">{scheme.benefit}</span>
                   </div>
                 </div>

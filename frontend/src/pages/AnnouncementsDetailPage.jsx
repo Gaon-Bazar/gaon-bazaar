@@ -3,11 +3,9 @@
 // Shows importance level, title, description, and date
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/DetailPages.css';
 
 function AnnouncementsDetailPage() {
-  const navigate = useNavigate();
 
   // Mock data for announcements
   const announcements = [
@@ -85,31 +83,38 @@ function AnnouncementsDetailPage() {
 
   return (
     <div className="detail-page">
-      {/* Announcements Section */}
+      <section className="detail-hero">
+        <div className="section-container">
+          <div className="hero-chip">Official Announcements</div>
+          <h1>Government notices, advisories, and alerts.</h1>
+          <p>Stay aligned with official communications on MSP, subsidies, insurance, and compliance timelines.</p>
+        </div>
+      </section>
+
       <section className="detail-content announcements-content">
         <div className="section-container">
           <div className="announcements-list">
-            {announcements.map(announcement => (
+            {announcements.map((announcement) => (
               <div key={announcement.id} className="announcement-item">
-                <div 
+                <div
                   className="announcement-category"
-                  style={{ 
+                  style={{
                     backgroundColor: getCategoryBgColor(announcement.category),
-                    color: getCategoryColor(announcement.category)
+                    color: getCategoryColor(announcement.category),
                   }}
                 >
                   {announcement.category}
                 </div>
-                
+
                 <div className="announcement-content">
                   <div className="announcement-header">
                     <span className="announcement-icon">{announcement.icon}</span>
                     <h3 className="announcement-title">{announcement.title}</h3>
                   </div>
-                  
+
                   <p className="announcement-description">{announcement.description}</p>
                   <p className="announcement-full-text">{announcement.fullText}</p>
-                  
+
                   <div className="announcement-footer">
                     <span className="announcement-date">📅 {announcement.date}</span>
                     <button className="read-more-btn">Read Full Notice →</button>
