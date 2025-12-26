@@ -18,6 +18,13 @@ class PricePredictionResponse(BaseModel):
     predicted_price: float
     unit: str
 
+# Render deploy steps (for reference):
+# 1) Go to render.com → New → Web Service
+# 2) Select the backend folder, choose Runtime: Python
+# 3) Set start command: uvicorn main:app --host 0.0.0.0 --port 10000
+# 4) Add environment variable: PORT=10000
+# 5) Deploy and use the provided Render URL in the frontend API base URL
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Gaon Bazar API",
@@ -30,7 +37,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 

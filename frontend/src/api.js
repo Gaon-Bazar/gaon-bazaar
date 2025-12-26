@@ -2,6 +2,8 @@
 import axios from 'axios';
 import supabase from './supabaseClient';
 
+// Replace baseURL with your Render backend URL after deployment, e.g.:
+// https://gaon-bazar-backend.onrender.com/api
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8000/api',
 });

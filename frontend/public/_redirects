@@ -1,0 +1,5 @@
+# API proxy to your backend on Render (replace the URL below)
+/api/* https://your-backend.onrender.com/api/:splat 200
+
+# React Router fallback so all routes serve index.html
+/* /index.html 200
