@@ -13,6 +13,8 @@ function Buyer() {
   const [error, setError] = useState('');
   const [orderMessage, setOrderMessage] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [quantityInputs, setQuantityInputs] = useState({}); // per-listing desired kg
+  const [quantityErrors, setQuantityErrors] = useState({}); // per-listing error text
   
   // UI State Management
   const [activeTab, setActiveTab] = useState('marketplace'); // marketplace, analytics, orders
@@ -39,15 +41,28 @@ function Buyer() {
     }
   };
 
-  const handleAddToCart = (listing) => {
+  const handleAddToCart = (listing, idx) => {
+    const desiredRaw = quantityInputs[idx] ?? 1;
+    let desired = parseInt(desiredRaw, 10);
+    if (isNaN(desired) || desired <= 0) desired = 1;
+    const available = parseInt(listing.quantity ?? 1, 10);
+    if (desired > available) {
+      setQuantityErrors((prev) => ({
+        ...prev,
+        [idx]: `Not enough quantity. Available: ${available} kg`,
+      }));
+      return;
+    }
+    const finalQty = Math.min(Math.max(desired, 1), available);
+
     addToCart({
-      id: listing.id ?? listing.crop,
+      id: listing.id ?? `${listing.crop}-${idx}`,
       name: listing.crop,
       price: listing.min_price ?? listing.price ?? 0,
-      quantity: 1,
+      quantity: finalQty,
       meta: { location: listing.location }
     });
-    setOrderMessage(`Added ${listing.crop} to cart.`);
+    setOrderMessage(`Added ${finalQty} kg ${listing.crop} to cart.`);
     setTimeout(() => setOrderMessage(''), 4000);
   };
 
@@ -260,6 +275,38 @@ function Buyer() {
                           ₹{listing.min_price} - ₹{listing.max_price}
                         </span>
                       </div>
+                      <div className="detail-row">
+                        <span className="detail-label">Buy (kg):</span>
+                        <span className="detail-value">
+                          <input
+                            type="number"
+                            min={1}
+                            max={listing.quantity}
+                            value={quantityInputs[index] ?? 1}
+                            onChange={(e) => {
+                              const val = e.target.value;
+                              setQuantityInputs((prev) => ({ ...prev, [index]: val }));
+                              const num = parseInt(val, 10);
+                              if (isNaN(num) || num < 1) {
+                                setQuantityErrors((prev) => ({ ...prev, [index]: 'Enter at least 1 kg' }));
+                              } else if (num > (listing.quantity ?? 0)) {
+                                setQuantityErrors((prev) => ({ ...prev, [index]: `Not enough quantity. Available: ${listing.quantity} kg` }));
+                              } else {
+                                setQuantityErrors((prev) => {
+                                  const { [index]: _, ...rest } = prev;
+                                  return rest;
+                                });
+                              }
+                            }}
+                            className="qty-input"
+                          />
+                        </span>
+                      </div>
+                      {quantityErrors[index] && (
+                        <div className="error-notification" style={{ marginTop: '6px' }}>
+                          ⚠️ {quantityErrors[index]}
+                        </div>
+                      )}
                     </div>
 
                     {/* Quality Badge */}
@@ -275,8 +322,9 @@ function Buyer() {
                   {/* Product Actions */}
                   <div className="product-actions">
                     <button
-                      onClick={() => handleAddToCart(listing)}
+                      onClick={() => handleAddToCart(listing, index)}
                       className="btn-add-cart"
+                      disabled={Boolean(quantityErrors[index])}
                     >
                       <span>🛒</span>
                       Add to Cart

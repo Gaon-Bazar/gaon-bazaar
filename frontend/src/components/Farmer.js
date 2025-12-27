@@ -16,7 +16,8 @@ function Farmer() {
   
   // Dashboard state
   const [activeTab, setActiveTab] = useState('listings'); // listings | all | analytics | add
-  const [listings, setListings] = useState([]);
+  const [listings, setListings] = useState([]); // Farmer's own (local) listings
+  const [allListings, setAllListings] = useState([]); // All marketplace listings from backend
 
   // base handled by api instance
 
@@ -74,6 +75,19 @@ function Farmer() {
     };
 
     recognitionRef.current = recognition;
+  }, []);
+
+  // Fetch all marketplace listings from backend on mount
+  useEffect(() => {
+    const fetchAllListings = async () => {
+      try {
+        const response = await api.get('/buyer/listings');
+        setAllListings(response.data || []);
+      } catch (e) {
+        console.error('Failed to fetch all listings', e);
+      }
+    };
+    fetchAllListings();
   }, []);
 
   // Handle microphone button click
@@ -151,6 +165,13 @@ function Farmer() {
         category: getCropCategory(extractedCrop.crop)
       };
       setListings([newListing, ...listings]);
+      // Refresh all marketplace listings from backend so "All Listings" stays in sync
+      try {
+        const refreshed = await api.get('/buyer/listings');
+        setAllListings(refreshed.data || []);
+      } catch (e) {
+        // non-blocking
+      }
       
       setVoiceInput('');
       setExtractedCrop(null);
@@ -324,10 +345,10 @@ function Farmer() {
         </div>
       )}
 
-      {/* Tab Content - All Listings (read-only) */}
+      {/* Tab Content - All Listings (read-only, fetched from backend) */}
       {activeTab === 'all' && (
         <div className="tab-content">
-          {listings.length === 0 ? (
+          {allListings.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">🌾</div>
               <h3>No listings yet — add your first crop!</h3>
@@ -335,13 +356,15 @@ function Farmer() {
             </div>
           ) : (
             <div className="listings-grid">
-              {listings.map((listing) => (
-                <div key={`all-${listing.id}`} className="listing-card">
+              {allListings.map((listing, idx) => (
+                <div key={`all-${listing.id ?? idx}`} className="listing-card">
                   <div className="listing-header">
                     <h3 className="listing-crop">{listing.crop}</h3>
-                    <span className={`status-badge ${listing.status?.toLowerCase?.() || 'active'}`}>
-                      {listing.status || 'Active'}
-                    </span>
+                    {listing.quality_verified ? (
+                      <span className="status-badge active">Verified</span>
+                    ) : (
+                      <span className="status-badge inactive">Standard</span>
+                    )}
                   </div>
 
                   <div className="listing-details">
@@ -350,16 +373,16 @@ function Farmer() {
                       <span className="detail-value">{listing.quantity ?? '—'} kg</span>
                     </div>
                     <div className="detail-row">
-                      <span className="detail-label">💰 Price:</span>
-                      <span className="detail-value">{listing.price ? `₹${listing.price}/kg` : '—'}</span>
+                      <span className="detail-label">💰 Price Range:</span>
+                      <span className="detail-value">{listing.min_price !== undefined && listing.max_price !== undefined ? `₹${listing.min_price} - ₹${listing.max_price}` : '—'}</span>
                     </div>
                     <div className="detail-row">
-                      <span className="detail-label">✨ Quality Score:</span>
-                      <span className="quality-badge-inline">{listing.quality ?? '—'}</span>
+                      <span className="detail-label">📍 Location:</span>
+                      <span className="detail-value">{listing.location || '—'}</span>
                     </div>
                     <div className="detail-row">
                       <span className="detail-label">📅 Created:</span>
-                      <span className="detail-value">{listing.created_at || listing.createdAt || '—'}</span>
+                      <span className="detail-value">{listing.timestamp || '—'}</span>
                     </div>
                   </div>
                 </div>
