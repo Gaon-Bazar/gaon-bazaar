@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import api from '../api';
 import './Farmer.css';
 
 function Farmer() {
+  const { t } = useTranslation();
   const [voiceInput, setVoiceInput] = useState('');
   const [extractedCrop, setExtractedCrop] = useState(null);
   const [priceData, setPriceData] = useState(null);
@@ -18,6 +20,11 @@ function Farmer() {
   const [activeTab, setActiveTab] = useState('listings'); // listings | all | analytics | add
   const [listings, setListings] = useState([]); // Farmer's own (local) listings
   const [allListings, setAllListings] = useState([]); // All marketplace listings from backend
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   // base handled by api instance
 
@@ -214,14 +221,14 @@ function Farmer() {
       {/* Dashboard Header */}
       <div className="dashboard-header">
         <div className="header-left">
-          <h1 className="dashboard-title">🌾 Farmer Dashboard</h1>
-          <p className="dashboard-subtitle">Manage your crops, prices, and marketplace listings</p>
+          <h1 className="dashboard-title">🌾 {t('farmer.title')}</h1>
+          <p className="dashboard-subtitle">{t('farmer.subtitle')}</p>
         </div>
         <button 
           className="btn-add-crop"
           onClick={() => setActiveTab('add')}
         >
-          + Add New Crop
+          + {t('farmer.add_new_crop')}
         </button>
       </div>
 
@@ -231,28 +238,28 @@ function Farmer() {
           <div className="metric-icon">📦</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.totalListings}</div>
-            <div className="metric-label">Total Listings</div>
+            <div className="metric-label">{t('farmer.metric_total_listings')}</div>
           </div>
         </div>
         <div className="metric-card">
           <div className="metric-icon">⚖️</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.totalQuantity}</div>
-            <div className="metric-label">Total Quantity (kg)</div>
+            <div className="metric-label">{t('farmer.metric_total_quantity')}</div>
           </div>
         </div>
         <div className="metric-card">
           <div className="metric-icon">✅</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.activeListings}</div>
-            <div className="metric-label">Active Listings</div>
+            <div className="metric-label">{t('farmer.metric_active_listings')}</div>
           </div>
         </div>
         <div className="metric-card">
           <div className="metric-icon">⭐</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.avgQuality}</div>
-            <div className="metric-label">Avg Quality Score</div>
+            <div className="metric-label">{t('farmer.metric_avg_quality')}</div>
           </div>
         </div>
       </div>
@@ -263,25 +270,25 @@ function Farmer() {
           className={`tab-btn ${activeTab === 'listings' ? 'active' : ''}`}
           onClick={() => setActiveTab('listings')}
         >
-          My Listings
+          {t('farmer.tab_my_listings')}
         </button>
         <button 
           className={`tab-btn ${activeTab === 'all' ? 'active' : ''}`}
           onClick={() => setActiveTab('all')}
         >
-          All Listings
+          {t('farmer.tab_all_listings')}
         </button>
         <button 
           className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
           onClick={() => setActiveTab('analytics')}
         >
-          Analytics
+          {t('farmer.tab_analytics')}
         </button>
         <button 
           className={`tab-btn ${activeTab === 'add' ? 'active' : ''}`}
           onClick={() => setActiveTab('add')}
         >
-          Add Crop
+          {t('farmer.tab_add_crop')}
         </button>
       </div>
 
@@ -291,13 +298,13 @@ function Farmer() {
           {listings.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">📦</div>
-              <h3>No listings yet</h3>
-              <p>Add your first crop to get started!</p>
+              <h3>{t('farmer.empty_title')}</h3>
+              <p>{t('farmer.empty_subtitle')}</p>
               <button 
                 className="btn-primary"
                 onClick={() => setActiveTab('add')}
               >
-                Add New Crop
+                {t('farmer.add_new_crop')}
               </button>
             </div>
           ) : (
@@ -351,8 +358,8 @@ function Farmer() {
           {allListings.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">🌾</div>
-              <h3>No listings yet — add your first crop!</h3>
-              <p>All your crops will appear here once added.</p>
+              <h3>{t('farmer.all_empty_title')}</h3>
+              <p>{t('farmer.all_empty_subtitle')}</p>
             </div>
           ) : (
             <div className="listings-grid">
@@ -397,8 +404,8 @@ function Farmer() {
         <div className="tab-content">
           <div className="analytics-placeholder">
             <div className="placeholder-icon">📊</div>
-            <h3>Analytics Coming Soon</h3>
-            <p>Track your sales performance, price trends, and market insights.</p>
+            <h3>{t('farmer.analytics_title')}</h3>
+            <p>{t('farmer.analytics_subtitle')}</p>
           </div>
         </div>
       )}
@@ -407,20 +414,20 @@ function Farmer() {
       {activeTab === 'add' && (
         <div className="tab-content">
           <div className="add-crop-section">
-            <h2>👨‍🌾 Add New Crop</h2>
-            <p className="section-subtitle">Tell us what you have to sell</p>
+            <h2>👨‍🌾 {t('farmer.add_new_crop')}</h2>
+            <p className="section-subtitle">{t('farmer.add_subtitle')}</p>
 
         {/* Voice Input Card */}
         <div className="card input-card">
           <label htmlFor="voiceInput" className="input-label">
-            Describe your produce (Hindi/English):
+            {t('farmer.voice_label')}
           </label>
           <div className="input-wrapper">
             <textarea
               id="voiceInput"
               value={voiceInput}
               onChange={(e) => setVoiceInput(e.target.value)}
-              placeholder="Example: Mere paas 50 kilo tamatar hai"
+              placeholder={t('farmer.voice_placeholder')}
               className="input-textarea"
               rows="3"
             />
@@ -448,7 +455,7 @@ function Farmer() {
             disabled={loading}
             className="btn-primary btn-large"
           >
-            {loading ? 'Processing...' : '🎤 Process Input'}
+            {loading ? t('common.processing') : `🎤 ${t('farmer.btn_process')}`}
           </button>
         </div>
 
@@ -462,15 +469,15 @@ function Farmer() {
         {/* Extracted Crop Info */}
         {extractedCrop && (
           <div className="card crop-info-card">
-            <h3>📊 Your Produce</h3>
+            <h3>📊 {t('farmer.crop_info_title')}</h3>
             <div className="info-grid">
               <div className="info-item">
-                <span className="info-label">Crop:</span>
+                <span className="info-label">{t('farmer.crop_label')}</span>
                 <span className="info-value">{extractedCrop.crop}</span>
               </div>
               <div className="info-item">
-                <span className="info-label">Quantity:</span>
-                <span className="info-value">{extractedCrop.quantity} kg</span>
+                <span className="info-label">{t('farmer.quantity_label')}</span>
+                <span className="info-value">{extractedCrop.quantity} {t('common.kg')}</span>
               </div>
             </div>
           </div>
@@ -479,16 +486,16 @@ function Farmer() {
         {/* Price Prediction Card */}
         {priceData && (
           <div className="card price-card">
-            <h3>💰 AI Fair Price</h3>
+            <h3>💰 {t('farmer.price_title')}</h3>
             <div className="price-display">
               <div className="price-range">
-                <span className="price-label">Fair Price Range:</span>
+                <span className="price-label">{t('farmer.price_range_label')}</span>
                 <span className="price-value">
                   ₹{priceData.min_price} - ₹{priceData.max_price}
                 </span>
               </div>
               <div className="price-predicted">
-                <span className="price-label">Predicted Price:</span>
+                <span className="price-label">{t('farmer.predicted_price_label')}</span>
                 <span className="price-value highlight">
                   ₹{priceData.predicted_price}
                 </span>
@@ -500,29 +507,29 @@ function Farmer() {
         {/* Quality Verification Card */}
         {qualityData && (
           <div className="card quality-card">
-            <h3>🔍 Quality Verification</h3>
+            <h3>🔍 {t('farmer.quality_title')}</h3>
             <div className="quality-grid">
               <div className="quality-item">
-                <span className="quality-label">Temperature:</span>
+                <span className="quality-label">{t('farmer.temperature_label')}</span>
                 <span className="quality-value">{qualityData.temperature}°C</span>
               </div>
               <div className="quality-item">
-                <span className="quality-label">Humidity:</span>
+                <span className="quality-label">{t('farmer.humidity_label')}</span>
                 <span className="quality-value">{qualityData.humidity}%</span>
               </div>
               <div className="quality-item">
-                <span className="quality-label">Freshness:</span>
+                <span className="quality-label">{t('farmer.freshness_label')}</span>
                 <span className="quality-value">{qualityData.freshness}/100</span>
               </div>
             </div>
             <div className="quality-badge-container">
               {qualityData.quality_verified ? (
                 <span className="badge badge-success">
-                  ✓ Quality Verified 🌿
+                  ✓ {t('farmer.quality_verified')} 🌿
                 </span>
               ) : (
                 <span className="badge badge-warning">
-                  ⚠ Review Conditions
+                  ⚠ {t('farmer.review_conditions')}
                 </span>
               )}
             </div>
@@ -536,7 +543,7 @@ function Farmer() {
             disabled={loading}
             className="btn-primary btn-large btn-add-listing"
           >
-            {loading ? 'Adding...' : '✅ Add to Marketplace'}
+            {loading ? t('common.adding') : `✅ ${t('farmer.btn_add_marketplace')}`}
           </button>
         )}
           </div>

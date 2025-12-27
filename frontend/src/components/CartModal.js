@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import './CartModal.css';
 
 function CartModal({ open, onClose, onCheckout }) {
+  const { t } = useTranslation();
   const { cart, removeFromCart } = useCart();
 
   if (!open) return null;
@@ -13,12 +15,12 @@ function CartModal({ open, onClose, onCheckout }) {
     <div className="cart-backdrop" onClick={onClose}>
       <div className="cart-modal" onClick={(e) => e.stopPropagation()}>
         <div className="cart-header">
-          <h3>🛒 Your Cart</h3>
+          <h3>🛒 {t('cart.title')}</h3>
           <button className="cart-close" onClick={onClose}>✕</button>
         </div>
 
         {cart.length === 0 ? (
-          <div className="cart-empty">Your cart is empty</div>
+          <div className="cart-empty">{t('cart.empty')}</div>
         ) : (
           <div className="cart-body">
             <div className="cart-items">
@@ -30,7 +32,7 @@ function CartModal({ open, onClose, onCheckout }) {
                   </div>
                   <div className="item-actions">
                     <div className="item-price">₹{(item.price || 0) * (item.quantity || 1)}</div>
-                    <button className="link-btn" onClick={() => removeFromCart(item.id)}>Remove</button>
+                    <button className="link-btn" onClick={() => removeFromCart(item.id)}>{t('cart.btn_remove')}</button>
                   </div>
                 </div>
               ))}
@@ -38,7 +40,7 @@ function CartModal({ open, onClose, onCheckout }) {
 
             <div className="cart-summary">
               <div className="summary-row">
-                <span>Total</span>
+                <span>{t('cart.total')}</span>
                 <span className="summary-total">₹{total.toFixed(2)}</span>
               </div>
             </div>
@@ -46,9 +48,9 @@ function CartModal({ open, onClose, onCheckout }) {
         )}
 
         <div className="cart-footer">
-          <button className="ghost-btn" onClick={onClose}>Continue Shopping</button>
+          <button className="ghost-btn" onClick={onClose}>{t('cart.btn_continue_shopping')}</button>
           <button className="solid-btn" disabled={cart.length === 0} onClick={onCheckout}>
-            Confirm Order
+            {t('cart.btn_confirm_order')}
           </button>
         </div>
       </div>

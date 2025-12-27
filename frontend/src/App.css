@@ -89,6 +89,36 @@
   flex-shrink: 0;
 }
 
+/* Language Toggle Button - Premium Style */
+.nav-lang-btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-weight: var(--font-extrabold);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(241, 196, 15, 0.9), rgba(241, 196, 15, 0.7));
+  color: #0a2318;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  font-size: var(--font-sm);
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.25);
+}
+
+.nav-lang-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(241, 196, 15, 0.35);
+  background: linear-gradient(135deg, rgba(241, 196, 15, 1), rgba(241, 196, 15, 0.85));
+}
+
+.nav-lang-btn:active {
+  transform: translateY(0);
+}
+
 /* Role Selection Buttons - Styled to match active tab appearance */
 .nav-role-btn {
   padding: var(--space-3) var(--space-4);

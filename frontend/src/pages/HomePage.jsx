@@ -1,56 +1,58 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/HomePage.css';
 import CategoriesSlider from '../components/CategoriesSlider';
 
 function HomePage() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const featureCards = [
     {
-      title: 'Voice-Based Crop Listing',
-      description: 'Farmers can speak in Hindi/Hinglish to list crops easily.',
+      title: t('home.feature_voice_title'),
+      description: t('home.feature_voice_desc'),
       icon: '🎤',
     },
     {
-      title: 'Fair Price Intelligence',
-      description: 'Get AI-powered fair price suggestions based on market data.',
+      title: t('home.feature_price_title'),
+      description: t('home.feature_price_desc'),
       icon: '💰',
     },
     {
-      title: 'Quality Verification',
-      description: 'Temperature & humidity-based freshness scoring.',
+      title: t('home.feature_quality_title'),
+      description: t('home.feature_quality_desc'),
       icon: '🌡️',
     },
     {
-      title: 'Direct Farmer–Buyer Trade',
-      description: 'No middlemen. Transparent and fair trading.',
+      title: t('home.feature_direct_title'),
+      description: t('home.feature_direct_desc'),
       icon: '🤝',
     },
   ];
 
   const resourceCards = [
     {
-      title: 'Government Schemes',
-      description: 'Browse PM-KISAN, crop insurance, MSP, and more.',
+      title: t('home.resource_schemes_title'),
+      description: t('home.resource_schemes_desc'),
       icon: '📜',
       route: '/schemes',
     },
     {
-      title: 'Subsidies & Financial Benefits',
-      description: 'Seed, fertilizer, storage, and low-interest loans.',
+      title: t('home.resource_subsidies_title'),
+      description: t('home.resource_subsidies_desc'),
       icon: '🏦',
       route: '/subsidies',
     },
     {
-      title: 'Upcoming Events & Training',
-      description: 'Workshops, training camps, and digital agri programs.',
+      title: t('home.resource_events_title'),
+      description: t('home.resource_events_desc'),
       icon: '📅',
       route: '/events',
     },
     {
-      title: 'Official Announcements',
-      description: 'Government notices, advisories, and seasonal alerts.',
+      title: t('home.resource_announcements_title'),
+      description: t('home.resource_announcements_desc'),
       icon: '📢',
       route: '/announcements',
     },
@@ -61,19 +63,18 @@ function HomePage() {
       <section className="hero">
         <div className="hero-overlay" />
         <div className="hero-content container">
-          <div className="hero-badge">Empowering Indian Farmers</div>
-          <h1 className="hero-title">Gaon Bazar</h1>
-          <p className="hero-subtitle">Fair prices. Trusted quality. Direct farmer-to-buyer marketplace.</p>
+          <div className="hero-badge">{t('home.hero_badge')}</div>
+          <h1 className="hero-title">{t('app.title')}</h1>
+          <p className="hero-subtitle">{t('home.hero_subtitle')}</p>
           <p className="hero-description">
-            Gaon Bazar connects farmers and buyers directly using voice-based input, fair price intelligence, and quality
-            verification — eliminating middlemen and increasing transparency.
+            {t('home.hero_description')}
           </p>
           <div className="hero-actions">
             <button className="cta-primary" onClick={() => navigate('/farmer')}>
-              Start as Farmer
+              {t('home.btn_start_farmer')}
             </button>
             <button className="cta-secondary" onClick={() => navigate('/buyer')}>
-              Explore Marketplace
+              {t('home.btn_explore_market')}
             </button>
           </div>
         </div>
@@ -81,9 +82,9 @@ function HomePage() {
 
       <section className="feature-section container">
         <div className="section-header">
-          <div className="eyebrow">Revolutionary Features for Farmers</div>
-          <h2>Built for trust, speed, and fairness</h2>
-          <p>Inspired by KrishiChain aesthetics, crafted for Gaon Bazar’s farmer-to-buyer mission.</p>
+          <div className="eyebrow">{t('home.features_eyebrow')}</div>
+          <h2>{t('home.features_heading')}</h2>
+          <p>{t('home.features_subheading')}</p>
         </div>
         <div className="feature-grid">
           {featureCards.map((card) => (
@@ -101,9 +102,9 @@ function HomePage() {
       <section className="resources-section" id="resources">
         <div className="container">
           <div className="section-header">
-            <div className="eyebrow">Government Support & Farmer Resources</div>
-            <h2>One window for verified benefits</h2>
-            <p>Everything farmers need to trust prices, access schemes, and stay informed.</p>
+            <div className="eyebrow">{t('home.resources_eyebrow')}</div>
+            <h2>{t('home.resources_heading')}</h2>
+            <p>{t('home.resources_subheading')}</p>
           </div>
           <div className="resource-grid">
             {resourceCards.map((card) => (
@@ -114,7 +115,7 @@ function HomePage() {
                   <p>{card.description}</p>
                 </div>
                 <button className="resource-btn" onClick={() => navigate(card.route)}>
-                  Learn More →
+                  {t('home.btn_learn_more')} →
                 </button>
               </div>
             ))}

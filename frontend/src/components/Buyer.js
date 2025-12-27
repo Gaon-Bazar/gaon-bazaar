@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import api from '../api';
 import { useCart } from '../context/CartContext';
 import CartModal from './CartModal';
 import './Buyer.css';
 
 function Buyer() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { cart, addToCart } = useCart();
   const [listings, setListings] = useState([]);
@@ -21,6 +23,11 @@ function Buyer() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedLocation, setSelectedLocation] = useState('all');
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   // Fetch listings on component mount
   useEffect(() => {
@@ -49,7 +56,7 @@ function Buyer() {
     if (desired > available) {
       setQuantityErrors((prev) => ({
         ...prev,
-        [idx]: `Not enough quantity. Available: ${available} kg`,
+        [idx]: `${t('buyer.error_not_enough')} ${available} kg`,
       }));
       return;
     }
@@ -62,7 +69,7 @@ function Buyer() {
       quantity: finalQty,
       meta: { location: listing.location }
     });
-    setOrderMessage(`Added ${finalQty} kg ${listing.crop} to cart.`);
+    setOrderMessage(`${t('buyer.added_to_cart')} ${finalQty} kg ${listing.crop}`);
     setTimeout(() => setOrderMessage(''), 4000);
   };
 
@@ -98,12 +105,12 @@ function Buyer() {
       <div className="dashboard-header">
         <div className="header-content">
           <div className="header-text">
-            <h1 className="dashboard-title">Buyer Dashboard</h1>
-            <p className="dashboard-subtitle">Discover fresh produce and buy directly from farmers</p>
+            <h1 className="dashboard-title">{t('buyer.title')}</h1>
+            <p className="dashboard-subtitle">{t('buyer.subtitle')}</p>
           </div>
           <button className="btn-cart" onClick={() => setIsCartOpen(true)}>
             <span className="cart-icon">🛒</span>
-            <span>View Cart ({cart.length})</span>
+            <span>{t('buyer.btn_view_cart')} ({cart.length})</span>
           </button>
         </div>
       </div>
@@ -114,7 +121,7 @@ function Buyer() {
           <div className="metric-icon orders-icon">📦</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.totalOrders || '0'}</div>
-            <div className="metric-label">Total Orders</div>
+            <div className="metric-label">{t('buyer.metric_total_orders')}</div>
           </div>
         </div>
 
@@ -122,7 +129,7 @@ function Buyer() {
           <div className="metric-icon money-icon">💰</div>
           <div className="metric-content">
             <div className="metric-value">₹{metrics.avgPrice}</div>
-            <div className="metric-label">Avg Price/kg</div>
+            <div className="metric-label">{t('buyer.metric_avg_price')}</div>
           </div>
         </div>
 
@@ -130,7 +137,7 @@ function Buyer() {
           <div className="metric-icon farmers-icon">👨‍🌾</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.verifiedCount}</div>
-            <div className="metric-label">Verified Farmers</div>
+            <div className="metric-label">{t('buyer.metric_verified_farmers')}</div>
           </div>
         </div>
 
@@ -138,7 +145,7 @@ function Buyer() {
           <div className="metric-icon savings-icon">📊</div>
           <div className="metric-content">
             <div className="metric-value">{metrics.totalProducts}</div>
-            <div className="metric-label">Products Available</div>
+            <div className="metric-label">{t('buyer.metric_products')}</div>
           </div>
         </div>
       </div>
@@ -150,21 +157,21 @@ function Buyer() {
           onClick={() => setActiveTab('marketplace')}
         >
           <span className="tab-icon">🛍️</span>
-          Marketplace
+          {t('buyer.tab_marketplace')}
         </button>
         <button 
           className={`tab-button ${activeTab === 'analytics' ? 'active' : ''}`}
           onClick={() => setActiveTab('analytics')}
         >
           <span className="tab-icon">📈</span>
-          Market Analytics
+          {t('buyer.tab_analytics')}
         </button>
         <button 
           className={`tab-button ${activeTab === 'orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('orders')}
         >
           <span className="tab-icon">📋</span>
-          My Orders
+          {t('buyer.tab_orders')}
         </button>
       </div>
 
@@ -192,7 +199,7 @@ function Buyer() {
               <input
                 type="text"
                 className="search-input"
-                placeholder="Search products..."
+                placeholder={t('buyer.search_placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
@@ -203,7 +210,7 @@ function Buyer() {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option value="all">All Categories</option>
+              <option value="all">{t('buyer.filter_all_categories')}</option>
               {categories.slice(1).map((cat, idx) => (
                 <option key={idx} value={cat}>{cat}</option>
               ))}
@@ -214,7 +221,7 @@ function Buyer() {
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
             >
-              <option value="all">All Locations</option>
+              <option value="all">{t('buyer.filter_all_locations')}</option>
               {locations.slice(1).map((loc, idx) => (
                 <option key={idx} value={loc}>{loc}</option>
               ))}
@@ -222,7 +229,7 @@ function Buyer() {
 
             <button onClick={fetchListings} disabled={loading} className="btn-refresh-modern">
               <span>🔄</span>
-              {loading ? 'Loading...' : 'Refresh'}
+              {loading ? t('common.loading') : t('buyer.btn_refresh')}
             </button>
           </div>
 
@@ -230,7 +237,7 @@ function Buyer() {
           {loading && (
             <div className="loading-state">
               <div className="loading-spinner"></div>
-              <p>Loading fresh produce...</p>
+              <p>{t('buyer.loading_produce')}</p>
             </div>
           )}
 
@@ -245,7 +252,7 @@ function Buyer() {
                       <span className="product-emoji">🌾</span>
                     </div>
                     {listing.quality_verified && (
-                      <span className="verified-badge">✓ Verified</span>
+                      <span className="verified-badge">✓ {t('buyer.verified')}</span>
                     )}
                   </div>
 
@@ -266,17 +273,17 @@ function Buyer() {
 
                     <div className="product-details">
                       <div className="detail-row">
-                        <span className="detail-label">Available:</span>
+                        <span className="detail-label">{t('buyer.available')}:</span>
                         <span className="detail-value">{listing.quantity} kg</span>
                       </div>
                       <div className="detail-row">
-                        <span className="detail-label">Price Range:</span>
+                        <span className="detail-label">{t('buyer.price_range')}:</span>
                         <span className="detail-value price-range">
                           ₹{listing.min_price} - ₹{listing.max_price}
                         </span>
                       </div>
                       <div className="detail-row">
-                        <span className="detail-label">Buy (kg):</span>
+                        <span className="detail-label">{t('buyer.buy_kg')}:</span>
                         <span className="detail-value">
                           <input
                             type="number"
@@ -312,9 +319,9 @@ function Buyer() {
                     {/* Quality Badge */}
                     <div className="quality-tag">
                       {listing.quality_verified ? (
-                        <span className="organic-badge">🌿 Organic Certified</span>
+                        <span className="organic-badge">🌿 {t('buyer.organic_certified')}</span>
                       ) : (
-                        <span className="standard-badge">Standard Quality</span>
+                        <span className="standard-badge">{t('buyer.standard_quality')}</span>
                       )}
                     </div>
                   </div>
@@ -327,10 +334,10 @@ function Buyer() {
                       disabled={Boolean(quantityErrors[index])}
                     >
                       <span>🛒</span>
-                      Add to Cart
+                      {t('buyer.btn_add_cart')}
                     </button>
                     <button className="btn-view-details">
-                      View Details
+                      {t('buyer.btn_view_details')}
                     </button>
                   </div>
                 </div>
@@ -339,8 +346,8 @@ function Buyer() {
           ) : !loading && filteredListings.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">🌾</div>
-              <h3>No products found</h3>
-              <p>Try adjusting your filters or check back soon for fresh produce!</p>
+              <h3>{t('buyer.empty_title')}</h3>
+              <p>{t('buyer.empty_subtitle')}</p>
             </div>
           ) : null}
         </div>
@@ -351,8 +358,8 @@ function Buyer() {
         <div className="analytics-section">
           <div className="placeholder-content">
             <div className="placeholder-icon">📈</div>
-            <h3>Market Analytics</h3>
-            <p>Price trends and market insights coming soon...</p>
+            <h3>{t('buyer.analytics_title')}</h3>
+            <p>{t('buyer.analytics_subtitle')}</p>
           </div>
         </div>
       )}
@@ -362,8 +369,8 @@ function Buyer() {
         <div className="orders-section">
           <div className="placeholder-content">
             <div className="placeholder-icon">📋</div>
-            <h3>My Orders</h3>
-            <p>Your order history will appear here.</p>
+            <h3>{t('buyer.orders_title')}</h3>
+            <p>{t('buyer.orders_subtitle')}</p>
             {orderMessage && (
               <div className="recent-order">
                 <p>{orderMessage}</p>

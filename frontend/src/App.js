@@ -12,20 +12,35 @@ import EventsDetailPage from './pages/EventsDetailPage';
 import AnnouncementsDetailPage from './pages/AnnouncementsDetailPage';
 import BillingPage from './pages/BillingPage';
 import { useAuth } from './context/AuthContext';
+// Import useTranslation hook for multi-language support
+import { useTranslation } from 'react-i18next';
 
 function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { activeRole, setActiveRole } = useAuth();
+  // Hook to access translation functions and current language
+  const { t, i18n } = useTranslation();
+  
+  // Scroll to top when location changes
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location.pathname]);
+  
+  // Toggle between English and Hindi
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'hi' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   // Define all navigation items with role visibility rules
   // role: null = show for everyone, 'farmer' = farmer only, 'buyer' = buyer only
   const allNavItems = [
-    { label: 'Home', to: '/', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
-    { label: 'Buyer Dashboard', to: '/buyer', roles: ['buyer'], hideOnPages: ['/'] },
-    { label: 'Marketplace', to: '/buyer', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
-    { label: 'Market Insights', to: '/events', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
-    { label: 'Schemes & Subsidies', to: '/schemes', roles: [null, 'farmer', 'buyer'], hideOnPages: ['/', '/buyer'] },
+    { label: t('nav.home'), to: '/', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
+    { label: t('nav.buyer_dashboard'), to: '/buyer', roles: ['buyer'], hideOnPages: ['/'] },
+    { label: t('nav.marketplace'), to: '/buyer', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
+    { label: t('nav.market_insights'), to: '/events', roles: [null, 'farmer', 'buyer'], hideOnPages: [] },
+    { label: t('nav.schemes_subsidies'), to: '/schemes', roles: [null, 'farmer', 'buyer'], hideOnPages: ['/', '/buyer'] },
   ];
   
   // Filter navigation items based on active role and current route
@@ -38,7 +53,7 @@ function Navbar() {
   return (
     <header className="top-nav">
       <div className="nav-inner">
-        <div className="logo" onClick={() => navigate('/')}>🌾 Gaon Bazar</div>
+        <div className="logo" onClick={() => navigate('/')}>🌾 {t('app.title')}</div>
 
         <nav className="nav-links">
           {navItems.map((item) => (
@@ -53,6 +68,15 @@ function Navbar() {
         </nav>
 
         <div className="nav-actions">
+          {/* Language Toggle Button - EN | HI */}
+          <button 
+            className="nav-lang-btn"
+            onClick={toggleLanguage}
+            title={`Switch to ${i18n.language === 'en' ? 'Hindi' : 'English'}`}
+          >
+            {i18n.language === 'en' ? '🇮🇳 HI' : '🇬🇧 EN'}
+          </button>
+          
           {/* Role selection buttons - active only when route matches */}
           <button 
             className={`nav-role-btn ${location.pathname === '/farmer' ? 'active' : 'inactive'}`}
@@ -62,7 +86,7 @@ function Navbar() {
             }}
             title="Enter Farmer Mode - Shows Farmer Dashboard only"
           >
-            👨‍🌾 Enter as Farmer
+            {t('nav.enter_farmer')}
           </button>
           <button 
             className={`nav-role-btn ${location.pathname === '/buyer' ? 'active' : 'inactive'}`}
@@ -72,7 +96,7 @@ function Navbar() {
             }}
             title="Enter Buyer Mode - Shows Buyer Dashboard only"
           >
-            🛒 Enter as Buyer
+            {t('nav.enter_buyer')}
           </button>
         </div>
       </div>
@@ -81,6 +105,8 @@ function Navbar() {
 }
 
 function App() {
+  const { t } = useTranslation();
+  
   return (
     <div className="App">
       <Navbar />
@@ -103,12 +129,12 @@ function App() {
       <footer className="footer">
         <div className="footer-content">
           <div>
-            <div className="footer-title">Connecting Farmers & Buyers</div>
-            <div className="footer-subtext">Prototype for demonstration</div>
+            <div className="footer-title">{t('footer.title')}</div>
+            <div className="footer-subtext">{t('footer.subtitle')}</div>
           </div>
           <div className="footer-links">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/buyer">Marketplace</NavLink>
+            <NavLink to="/">{t('nav.home')}</NavLink>
+            <NavLink to="/buyer">{t('footer.marketplace')}</NavLink>
             <NavLink to="/schemes">Schemes</NavLink>
           </div>
         </div>

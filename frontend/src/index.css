@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 @import './styles/theme.css';
 
+/* Smooth scrolling globally */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Legacy variables for backward compatibility - will be gradually removed */
 :root {
   /* Premium Agriculture Palette */

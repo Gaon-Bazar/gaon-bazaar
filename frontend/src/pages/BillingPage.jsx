@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import './BillingPage.css';
 
 function BillingPage() {
+  const { t } = useTranslation();
   const { cart, clearCart } = useCart();
   const navigate = useNavigate();
 
@@ -23,11 +25,11 @@ function BillingPage() {
   return (
     <div className="billing-page">
       <div className="billing-card">
-        <h2>Order Confirmed ✅</h2>
-        <p className="muted">Thanks for your purchase. Your order will be delivered soon.</p>
+        <h2>{t('billing.title')} ✅</h2>
+        <p className="muted">{t('billing.subtitle')}</p>
 
         <div className="billing-section">
-          <div className="section-title">Items</div>
+          <div className="section-title">{t('billing.section_items')}</div>
           {cart.map((item) => (
             <div key={item.id} className="billing-row">
               <span>{item.name} · {item.quantity} kg</span>
@@ -35,20 +37,20 @@ function BillingPage() {
             </div>
           ))}
           <div className="billing-row total">
-            <span>Total</span>
+            <span>{t('cart.total')}</span>
             <span>₹{total.toFixed(2)}</span>
           </div>
         </div>
 
         <div className="billing-section">
-          <div className="section-title">Delivery</div>
+          <div className="section-title">{t('billing.section_delivery')}</div>
           <div className="billing-row">
-            <span>Standard Delivery</span>
-            <span>2-3 days</span>
+            <span>{t('billing.delivery_method')}</span>
+            <span>{t('billing.delivery_time')}</span>
           </div>
         </div>
 
-        <button className="solid-btn" onClick={handlePlaceOrder}>Back to Market</button>
+        <button className="solid-btn" onClick={handlePlaceOrder}>{t('billing.btn_back')}</button>
       </div>
     </div>
   );
