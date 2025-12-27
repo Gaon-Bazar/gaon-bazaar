@@ -32,14 +32,6 @@ function CategoriesSlider() {
     },
   ];
 
-  // Auto-slide every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleNext();
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
-
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? categories.length - 1 : prev - 1));
   };
@@ -47,6 +39,14 @@ function CategoriesSlider() {
   const handleNext = () => {
     setCurrentIndex((prev) => (prev === categories.length - 1 ? 0 : prev + 1));
   };
+
+  // Auto-slide every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [handleNext]);
 
   return (
     <section className="categories-slider-section">

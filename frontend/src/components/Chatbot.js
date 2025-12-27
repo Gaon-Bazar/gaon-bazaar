@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import './Chatbot.css';
 
 function Chatbot() {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -93,7 +93,7 @@ function Chatbot() {
         timestamp: new Date()
       }]);
     }
-  }, []);
+  }, [messages.length]);
 
   // Scheme information database
   const schemeData = {
