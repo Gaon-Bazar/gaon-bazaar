@@ -19,7 +19,14 @@
 
 ---
 
-## 🚀 Quick Start
+## � How It Works
+
+![Gaon Bazar Workflow](assets/workflow%20of%20Gaon%20Bazar.jpeg)
+*Complete workflow showing farmer-to-buyer journey: Voice listing → AI pricing → Quality verification → Direct marketplace trading*
+
+---
+
+## �🚀 Quick Start
 
 **Prerequisites**: Python 3.12+, Node.js 14+
 
