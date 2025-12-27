@@ -3,6 +3,7 @@ import './index.css';
 import './App.css';
 import Farmer from './components/Farmer';
 import Buyer from './components/Buyer';
+import Chatbot from './components/Chatbot';
 import { Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import DevAuthTest from './pages/DevAuthTest';
 import HomePage from './pages/HomePage';
@@ -139,6 +140,9 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {/* Chatbot for farmer assistance */}
+      <Chatbot />
     </div>
   );
 }
