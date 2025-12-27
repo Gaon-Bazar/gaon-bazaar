@@ -51,7 +51,12 @@ npm start
 ---
 
 ## � Screenshots & Demo
+### 🎬 Product Demo - Ramu Kaka's Journey
+https://github.com/user-attachments/assets/How%20life%20of%20Ramu%20kaka%20evolved.mp4
 
+*Watch how Gaon Bazar transformed a farmer's life - from traditional struggles to modern digital marketplace success*
+
+---
 ### 🇮🇳 Hindi Home Page
 ![Hindi Home Page](assets/hindi%20home%20page.png)
 *Full bilingual support - Homepage in Hindi with government schemes and farmer resources*
