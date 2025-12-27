@@ -43,7 +43,39 @@ npm start
 
 ---
 
-## 📱 Core Features
+## � Screenshots & Demo
+
+### 🇮🇳 Hindi Home Page
+![Hindi Home Page](assets/hindi%20home%20page.png)
+*Full bilingual support - Homepage in Hindi with government schemes and farmer resources*
+
+### 🇬🇧 English Home Page
+![English Home Page](assets/eng%20home%20page.png)
+*Beautiful landing page showcasing key features: voice input, fair pricing, and direct farmer-buyer connection*
+
+### 👨‍🌾 Farmer Adding Crop
+![Farmer Adding Crop](assets/farmer%20adding%20crop.png)
+*Voice-enabled crop listing - Farmers speak in Hindi/Hinglish to automatically extract crop details and quantity*
+
+### 📝 Adding Crop to Marketplace
+![Adding to Market](assets/adding%20crop%20in%20market%20list.png)
+*AI price prediction and quality verification - Real-time freshness scoring with temperature/humidity data*
+
+### 🛒 Buyer Marketplace
+![Marketplace](assets/marker%20place.png)
+*Browse fresh produce with filters - Search by crop, category, or location with real-time availability*
+
+### 🛍️ Add to Cart
+![Add to Cart](assets/add%20to%20cart.png)
+*Smart shopping experience - Quantity validation and multi-item cart with live total calculation*
+
+### ✅ Billing & Order Confirmation
+![Billing Page](assets/blling%20page.png)
+*Order summary with delivery timeline - Instant confirmation and auto-clear cart for seamless checkout*
+
+---
+
+## �📱 Core Features
 
 ### 👨‍🌾 Farmer Dashboard
 - **Voice Crop Listing**: Speak "mere paas 50 kilo tamatar hai" → Auto-extracts crop & quantity
